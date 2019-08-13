@@ -12,21 +12,17 @@ def get_hash(file_path):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
 
-
-try:
-    dir_a = sys.argv[1]
-    dir_b = sys.argv[2]
-except:
-    print("Please provide two arguments")
+if len(sys.argv) == 1:
+    print("Please provide at least one argument")
     sys.exit(1)
 
-list_dirs = [dir_a, dir_b]
-
-#Check that the two directories are really directories
-for c in list_dirs:
+list_dirs = list()
+for c in sys.argv[1:]:
     if not os.path.isdir(c):
         print("Argument " + c + " is not a directory")
         sys.exit(1)
+    else:
+        list_dirs.append(c)
 
 #Get a dictionary with all the files in the two directories, using the hash as key
 dict_all_files = dict()
